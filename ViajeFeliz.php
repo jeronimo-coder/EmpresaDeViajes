@@ -9,11 +9,11 @@ class Viaje{
     private $pasajeros = [];
     private $responsable;
 
-    public function __construct($codigo, $destino, $importe, $viajeDe ,$maxPasajeros, $responsable){
+    public function __construct($codigo, $destino, $importe/* $viajeDe */ ,$maxPasajeros, $responsable){
         $this->codigoViaje = $codigo;
         $this->destinoViaje = $destino;
         $this->importe = $importe;
-        $this->viajeDe = $viajeDe;
+        /* $this->viajeDe = $viajeDe; */
         $this->cantidadMaxPasajeros = $maxPasajeros;
         $this->responsable = $responsable;
     }
@@ -184,7 +184,7 @@ class Viaje{
 
     /**  Ticket for sale
      * @param object $pasajero
-     * @return bool
+     * @return int
      */
     public function venderPasaje($pasajero){
         $precioVenta = 0;

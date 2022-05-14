@@ -3,10 +3,9 @@
 class Terrestre extends Viaje{
     private $comodidadAsiento;
 
-    public function __construct($codigoDestino, $destinoViaje, $importe, $viajeDe, $cantMaxPas, $responsable, $comodidadAsiento)
+    public function __construct($codigoDestino, $destinoViaje, $importe/*  $viajeDe */, $cantMaxPas, $responsable)
     {
-        parent::__construct($codigoDestino, $destinoViaje, $importe, $viajeDe, $cantMaxPas, $responsable);
-        $this->comodidadAsiento = $comodidadAsiento;
+        parent::__construct($codigoDestino, $destinoViaje, $importe /* $viajeDe */, $cantMaxPas, $responsable);
     }
 
     public function getComodidadAsiento(){
@@ -26,20 +25,20 @@ class Terrestre extends Viaje{
 
      /**  Ticket for sale
      * @param object $pasajero
-     * @return bool
+     * @return int
      */
 
     public function venderPasaje($pasajero){
         $venta = parent::venderPasaje($pasajero);
-        if($venta < 0){
+        $precioFinal = parent::getImporte();
+        if($venta > 0){
             if($this->getComodidadAsiento() == "cama"){
-                $aumento = parent::getImporte() * 0.25;
-                $precioFinal = parent::getImporte() + $aumento;
-                parent::setImporte($precioFinal);
+                $aumento = $precioFinal * 0.25;
+                $precioFinal += $aumento;
             }
             if(parent::getViajeDe() == "ida y vuelta"){
-                $precioFinal = $precioFinal * 0.50;
-                parent::setImporte($precioFinal);
+                $aumento = $precioFinal * 0.50;
+                $precioFinal += $aumento;
             }
         }
         return $precioFinal;
