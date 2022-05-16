@@ -24,14 +24,14 @@ $responsable = obtenerDatos("responsable");
 if($tipo == "avion"){
     echo "Ingrese el número de vuelo: ";
     $numVuelo = trim(fgets(STDIN));
-    echo "Ingrese la categoria del asiento: ";
-    $categoriaAsiento = trim(fgets(STDIN));
+    /* echo "Ingrese la categoria del asiento: ";
+    $categoriaAsiento = trim(fgets(STDIN)); */
     echo "Ingrese el nombre de la aerolinea: ";
     $nombreAerolinea = trim(fgets(STDIN));
     echo "La cantidad de escalas: ";
     $cantidadEscalas = trim(fgets(STDIN));
-    $viaje1 = new Aereos($codigoViaje, $destinoViaje, $importe, $viajeDe, $maxPasajerosViaje, 
-    $responsable, $numVuelo, $categoriaAsiento, $nombreAerolinea, $cantidadEscalas);
+    $viaje1 = new Aereos($codigoViaje, $destinoViaje, $importe, /*$viajeDe */ $maxPasajerosViaje, 
+    $responsable, $numVuelo,/* $categoriaAsiento, */  $nombreAerolinea, $cantidadEscalas);
 } elseif($tipo == "micro"){
     $viaje1 = new Terrestre($codigoViaje, $destinoViaje, $importe/* , $viajeDe  */,$maxPasajerosViaje, $responsable);
 }
@@ -116,12 +116,21 @@ do{
         case '9':
             echo "Ingrese los datos del pasajero: ";
             $pasajero = obtenerDatos("pasajero");
-            echo "El viaje es de (ida) o (vuelta)? Coloque (ida y vuelta) si es el caso: \n";
-            $viajeDe = trim(fgets(STDIN));
-            $viaje1->setViajeDe($viajeDe);
-            echo "Ingrese el tipo de butaca: ";
-            $butaca = trim(fgets(STDIN));
-            $viaje1->setComodidadAsiento($butaca);
+            if($tipo == "micro"){
+                echo "El viaje es de (ida) o (vuelta)? Coloque (ida y vuelta) si es el caso: \n";
+                $viajeDe = trim(fgets(STDIN));
+                $viaje1->setViajeDe($viajeDe);
+                echo "Ingrese el tipo de butaca: ";
+                $butaca = trim(fgets(STDIN));
+                $viaje1->setComodidadAsiento($butaca);
+            } elseif($tipo == "avion"){
+                echo "El viaje es de (ida) o (vuelta)? Coloque (ida y vuelta) si es el caso: \n";
+                $viajeDe = trim(fgets(STDIN));
+                $viaje1->setViajeDe($viajeDe);
+                echo "Ingrese la categoria del asiento: ";
+                $categoriaAsiento = trim(fgets(STDIN));
+                $viaje1->setCategoriaAsiento($categoriaAsiento);
+            }
             $precioPasaje = $viaje1->venderPasaje($pasajero);
             echo "El precio del pasaje fue: $precioPasaje";
             break;

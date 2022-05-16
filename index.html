@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Sea bienvenido a Viaje Feliz!</h1>
+    <p>Le pedimos que ingrese los datos correspondientes a su viaje: </p>
+    <form action="TestViaje.php" method="POST">
+        <label for="tipo">El viaje sera en micro o avion?</label>
+        <input type="text" name="tipo" id="tipo">
+        <br>
+        <label for="codigoViaje">Ingrese el codigo del viaje: </label>
+        <input type="number" name="codigoViaje" id="codigoViaje">
+        <br>
+        <label for="destinoViaje">Cual es el destino?: </label>
+        <input type="text" name="destinoViaje" id="destinoViaje">
+        <br>
+        <label for="importeViaje">Ingrese el importe del viaje: </label>
+        <input type="number" name="importeViaje" id="importeViaje">
+        <br>
+        <label for="maxPasajerosViaje">Cual es la cantidad max de pasajeros?: </label>
+        <input type="number" name="maxPasajerosViaje" id="maxPasajerosViaje">
+        <br>
+        <label for="responsableViaje">Responsable del viaje: </label>
+        <input type="number" name="responsableViaje" id="responsableViaje">
+        <br>
+        <button>Enviar formulario</button>
+    </form>
+</body>
+</html>

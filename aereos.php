@@ -6,11 +6,11 @@ class Aereos extends Viaje{
     private $nombreAerolinea;
     private $cantidadEscalas;
 
-    public function __construct($codigoDestino, $destinoViaje, $importe, $viajeDe, $cantMaxPas, $responsable, $numVuelo, $categoriaAsiento, $nombreAerolinea, $cantidadEscalas)
+    public function __construct($codigoDestino, $destinoViaje, $importe, /* $viajeDe, */ $cantMaxPas, $responsable, $numVuelo,/*  $categoriaAsiento */ $nombreAerolinea, $cantidadEscalas)
     {
-        parent::__construct($codigoDestino, $destinoViaje, $importe, $viajeDe, $cantMaxPas, $responsable);
+        parent::__construct($codigoDestino, $destinoViaje, $importe, /* $viajeDe,  */$cantMaxPas, $responsable);
         $this->numVuelo = $numVuelo;
-        $this->categoriaAsiento = $categoriaAsiento;
+/*         $this->categoriaAsiento = $categoriaAsiento; */
         $this->nombreAerolinea = $nombreAerolinea;
         $this->cantidadEscalas = $cantidadEscalas;
     }
@@ -67,19 +67,19 @@ class Aereos extends Viaje{
     {
         $asiento = $this->getCategoriaAsiento();
         $escalas = $this->getCantidadEscalas();
-        $importe = parent::getImporte();
+        $precioFinal = parent::getImporte();
         $venta = parent::venderPasaje($pasajero);
-        if($venta < 0){
-            if($asiento == "Primera clase" && $escalas == 0){
-                $precioFinal = $importe * 0.40;
-                parent::setImporte($precioFinal);
-            } elseif($asiento == "Primera clase" && $escalas < 0){
-                $precioFinal = $importe * 0.60;
-                parent::setImporte($precioFinal);
+        if($venta > 0){
+            if($asiento == "primera clase" && $escalas == 0){
+                $aumento = $precioFinal * 0.40;
+                $precioFinal += $aumento;
+            } elseif($asiento == "primera clase" && $escalas > 0){
+                $aumento = $precioFinal * 0.60;
+                $precioFinal += $aumento;
             }
             if(parent::getViajeDe() == "ida y vuelta"){
-                $precioFinal = $precioFinal * 0.50;
-                parent::setImporte($precioFinal);
+                $aumento= $precioFinal * 0.50;
+                $precioFinal += $aumento;
             }  
         }
         return $precioFinal;     
