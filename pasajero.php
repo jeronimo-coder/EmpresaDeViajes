@@ -1,6 +1,7 @@
 <?php
 
-class Pasajero{
+class Pasajero
+{
     private $nombre;
     private $apellido;
     private $numDocumento;
@@ -14,46 +15,54 @@ class Pasajero{
         $this->telefono = $phone;
     }
 
-    
 
-    public function getNombre(){
+
+    public function getNombre()
+    {
         return $this->nombre;
     }
 
-    public function setNombre($nombre){
+    public function setNombre($nombre)
+    {
         $this->nombre = $nombre;
     }
 
-    public function getApellido(){
+    public function getApellido()
+    {
         return $this->apellido;
     }
 
-    public function setApellido($apellido){
+    public function setApellido($apellido)
+    {
         $this->apellido = $apellido;
     }
 
-    public function getNumDocumento(){
+    public function getNumDocumento()
+    {
         return $this->numDocumento;
     }
 
-    public function setNumDocumento($numDocumento){
+    public function setNumDocumento($numDocumento)
+    {
         $this->numDocumento = $numDocumento;
     }
 
-    public function getTelefono(){
+    public function getTelefono()
+    {
         return $this->telefono;
     }
 
-    public function setTelefono($telefono){
+    public function setTelefono($telefono)
+    {
         $this->telefono = $telefono;
     }
 
     public function __toString()
     {
-        $info = "Nombre: {$this->getNombre()}".
-        "Apellido: {$this->getApellido()}".
-        "DNI: {$this->getNumDocumento()}".
-        "Telefono: {$this->getTelefono()}";
+        $info = "Nombre: {$this->getNombre()}" .
+            "Apellido: {$this->getApellido()}" .
+            "DNI: {$this->getNumDocumento()}" .
+            "Telefono: {$this->getTelefono()}";
         return $info;
     }
     
