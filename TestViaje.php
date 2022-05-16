@@ -21,7 +21,7 @@ $maxPasajerosViaje = trim(fgets(STDIN));
 echo "Responsable del viaje: \n";
 $responsable = obtenerDatos("responsable");
 
-if($tipo == "avion"){
+if ($tipo == "avion") {
     echo "Ingrese el número de vuelo: ";
     $numVuelo = trim(fgets(STDIN));
     /* echo "Ingrese la categoria del asiento: ";
@@ -30,64 +30,72 @@ if($tipo == "avion"){
     $nombreAerolinea = trim(fgets(STDIN));
     echo "La cantidad de escalas: ";
     $cantidadEscalas = trim(fgets(STDIN));
-    $viaje1 = new Aereos($codigoViaje, $destinoViaje, $importe, /*$viajeDe */ $maxPasajerosViaje, 
-    $responsable, $numVuelo,/* $categoriaAsiento, */  $nombreAerolinea, $cantidadEscalas);
-} elseif($tipo == "micro"){
-    $viaje1 = new Terrestre($codigoViaje, $destinoViaje, $importe/* , $viajeDe  */,$maxPasajerosViaje, $responsable);
+    $viaje1 = new Aereos(
+        $codigoViaje,
+        $destinoViaje,
+        $importe, /*$viajeDe */
+        $maxPasajerosViaje,
+        $responsable,
+        $numVuelo,/* $categoriaAsiento, */
+        $nombreAerolinea,
+        $cantidadEscalas
+    );
+} elseif ($tipo == "micro") {
+    $viaje1 = new Terrestre($codigoViaje, $destinoViaje, $importe/* , $viajeDe  */, $maxPasajerosViaje, $responsable);
 }
 
 $inicializar = true;
 
-do{
+do {
     echo menu();
     $opcion = trim(fgets(STDIN));
-    switch($opcion){
+    switch ($opcion) {
         case '1':
             echo $viaje1;
             break;
-        
+
         case '2':
-            if($viaje1->hayPasajesDisponibles()){
+            if ($viaje1->hayPasajesDisponibles()) {
                 echo "Ingrese los datos del pasajero: \n";
                 $pasajero = obtenerDatos("pasajero");
-                if($viaje1->agregarPasajero($pasajero)){
+                if ($viaje1->agregarPasajero($pasajero)) {
                     echo "Agregado con exito!";
-                }else{
+                } else {
                     echo "El pasajero ya se encuentra agendado.";
                 }
-            } else{
+            } else {
                 echo "No queda más lugar.";
             }
             break;
 
         case '3':
-            if(count($viaje1->getPasajeros()) == 0){
+            if (count($viaje1->getPasajeros()) == 0) {
                 echo "No hay pasajeros que modificar";
-            }else{
+            } else {
                 echo "Ingrese el DNI del pasajero a modificar: \n";
                 $pasajero = trim(fgets(STDIN));
-                if($viaje1->modificarPasajero($pasajero)){
+                if ($viaje1->modificarPasajero($pasajero)) {
                     echo "Modificado con exito.";
                 } else {
                     echo "Este pasajero no se encuentra agendado.";
                 }
-            } 
+            }
             break;
-        
+
         case '4':
-            if(count($viaje1->getPasajeros()) == 0){
+            if (count($viaje1->getPasajeros()) == 0) {
                 echo "No hay pasajeros que quitar";
-            }else{
+            } else {
                 echo "Ingrese el DNI del pasajero a quitar: \n";
-            $pasajeroQuitar = trim(fgets(STDIN));
-            if($viaje1->quitarPasajero($pasajeroQuitar)){
-                echo "Quitado del viaje con exito.";
-            }else{
-                echo "Este pasajero no se encuentra agendado.";
-            }
+                $pasajeroQuitar = trim(fgets(STDIN));
+                if ($viaje1->quitarPasajero($pasajeroQuitar)) {
+                    echo "Quitado del viaje con exito.";
+                } else {
+                    echo "Este pasajero no se encuentra agendado.";
+                }
             }
             break;
-        
+
         case '5':
             echo "Ingrese el nuevo destino: \n";
             $destinoNuevo = trim(fgets(STDIN));
@@ -106,24 +114,24 @@ do{
             $nuevoMax = intval($nuevoMax);
             $viaje1->setMaxPasajeros($nuevoMax);
             break;
-        
+
         case '8':
             echo "Datos del responsable: ";
             $responsableV = obtenerDatos("responsable");
             $viaje1->setResponsable($responsableV);
-            break;    
-        
+            break;
+
         case '9':
             echo "Ingrese los datos del pasajero: ";
             $pasajero = obtenerDatos("pasajero");
-            if($tipo == "micro"){
+            if ($tipo == "micro") {
                 echo "El viaje es de (ida) o (vuelta)? Coloque (ida y vuelta) si es el caso: \n";
                 $viajeDe = trim(fgets(STDIN));
                 $viaje1->setViajeDe($viajeDe);
                 echo "Ingrese el tipo de butaca: ";
                 $butaca = trim(fgets(STDIN));
                 $viaje1->setComodidadAsiento($butaca);
-            } elseif($tipo == "avion"){
+            } elseif ($tipo == "avion") {
                 echo "El viaje es de (ida) o (vuelta)? Coloque (ida y vuelta) si es el caso: \n";
                 $viajeDe = trim(fgets(STDIN));
                 $viaje1->setViajeDe($viajeDe);
@@ -134,14 +142,14 @@ do{
             $precioPasaje = $viaje1->venderPasaje($pasajero);
             echo "El precio del pasaje fue: $precioPasaje";
             break;
-            
+
         case '10':
             $inicializar = false;
-           
     }
-}while($inicializar);
+} while ($inicializar);
 
-function menu(){
+function menu()
+{
     $menu = "
     1 - Informacion sobre el viaje.\n
     2 - Agregar pasajero.\n
@@ -161,8 +169,9 @@ function menu(){
  * @return object
  */
 
-function obtenerDatos($deQuien){
-    if($deQuien == "pasajero"){
+function obtenerDatos($deQuien)
+{
+    if ($deQuien == "pasajero") {
         echo "Nombre: \n";
         $nombre = trim(fgets(STDIN));
         echo "Apellido: \n";
@@ -172,7 +181,7 @@ function obtenerDatos($deQuien){
         echo "Telefono: \n";
         $telefono = trim(fgets(STDIN));
         $objeto = new Pasajero($nombre, $apellido, $dni, $telefono);
-    } elseif($deQuien == "responsable"){
+    } elseif ($deQuien == "responsable") {
         echo "Número Empleado: \n";
         $numEmpleado = trim(fgets(STDIN));
         echo "Número Licencia: \n";
@@ -183,6 +192,6 @@ function obtenerDatos($deQuien){
         $apellido = trim(fgets(STDIN));
         $objeto = new ResponsableV($numEmpleado, $numLicencia, $nombre, $apellido);
     }
-    
+
     return $objeto;
 }

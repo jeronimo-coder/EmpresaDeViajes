@@ -1,6 +1,7 @@
 <?php
 
-class Viaje{
+class Viaje
+{
     private $codigoViaje;
     private $destinoViaje;
     private $importe;
@@ -9,7 +10,8 @@ class Viaje{
     private $pasajeros = [];
     private $responsable;
 
-    public function __construct($codigo, $destino, $importe/* $viajeDe */ ,$maxPasajeros, $responsable){
+    public function __construct($codigo, $destino, $importe/* $viajeDe */, $maxPasajeros, $responsable)
+    {
         $this->codigoViaje = $codigo;
         $this->destinoViaje = $destino;
         $this->importe = $importe;
@@ -18,59 +20,73 @@ class Viaje{
         $this->responsable = $responsable;
     }
 
-    public function getCodigo(){
+    public function getCodigo()
+    {
         return $this->codigoViaje;
     }
 
-    public function getDestino(){
+    public function getDestino()
+    {
         return $this->destinoViaje;
     }
 
-    public function getMaxPasajeros(){
+    public function getMaxPasajeros()
+    {
         return $this->cantidadMaxPasajeros;
     }
 
-    public function getImporte(){
+    public function getImporte()
+    {
         return $this->importe;
     }
 
-    public function setImporte($importe){
+    public function setImporte($importe)
+    {
         $this->importe = $importe;
     }
 
-    public function getViajeDe(){
+    public function getViajeDe()
+    {
         return $this->viajeDe;
     }
 
-    public function setViajeDe($viajeDe){
+    public function setViajeDe($viajeDe)
+    {
         $this->viajeDe = $viajeDe;
     }
 
-    public function getPasajeros(){
+    public function getPasajeros()
+    {
         return $this->pasajeros;
     }
 
-    public function setCodigo($cod){
+    public function setCodigo($cod)
+    {
         $this->codigoViaje = $cod;
     }
 
-    public function setDestino($destino){
+    public function setDestino($destino)
+    {
         $this->destinoViaje = $destino;
     }
 
-    public function setMaxPasajeros($max){
+    public function setMaxPasajeros($max)
+    {
         $this->cantidadMaxPasajeros = $max;
     }
 
-    public function setPasajeros($pasajero){
+    public function setPasajeros($pasajero)
+    {
         $this->pasajeros = $pasajero;
     }
 
-    public function getResponsable(){
+    public function getResponsable()
+    {
         return $this->responsable;
     }
 
-    public function setResponsable($responsable){
+    public function setResponsable($responsable)
+    {
         $this->responsable = $responsable;
     }
 
@@ -78,21 +94,22 @@ class Viaje{
      * @param object $pasajeroNuevo
      * @return bool
      */
-    public function agregarPasajero($pasajeroNuevo){
+    public function agregarPasajero($pasajeroNuevo)
+    {
         $array = $this->getPasajeros();
         $n = count($array);
         $bolean = true;
-        if($n == 0){
+        if ($n == 0) {
             $bolean = true;
-        }else{
-            for($i = 0; $i < $n; $i++){
-                if($pasajeroNuevo->getNumDocumento() == $array[$i]->getNumDocumento()){
-                $bolean = false;
+        } else {
+            for ($i = 0; $i < $n; $i++) {
+                if ($pasajeroNuevo->getNumDocumento() == $array[$i]->getNumDocumento()) {
+                    $bolean = false;
                 }
             }
         }
-        
-        if($bolean == true){
+
+        if ($bolean == true) {
             array_push($array, $pasajeroNuevo);
             $this->setPasajeros($array);
         }
@@ -105,25 +122,26 @@ class Viaje{
      * @return bool
      */
 
-    public function quitarPasajero($dniPasajero){
+    public function quitarPasajero($dniPasajero)
+    {
         $arrayNuevo = $this->getPasajeros();
         $n = count($arrayNuevo);
         $bolean = false;
-        if($n == 0){
+        if ($n == 0) {
             $bolean = false;
-        }else{
-            for($i = 0; $i < $n; $i++){
-                if($dniPasajero == $arrayNuevo[$i]->getNumDocumento()){
+        } else {
+            for ($i = 0; $i < $n; $i++) {
+                if ($dniPasajero == $arrayNuevo[$i]->getNumDocumento()) {
                     $num = $i;
                     $bolean = true;
                 }
             }
-        } 
-        if($bolean == true){
+        }
+        if ($bolean == true) {
             array_splice($arrayNuevo, $num, 1);
             $this->setPasajeros($arrayNuevo);
-        } 
-         return $bolean;
+        }
+        return $bolean;
     }
 
     /** MODIFICAR DATOS DE UN PASAJERO
@@ -131,15 +149,16 @@ class Viaje{
      * @return bool
      */
 
-    public function modificarPasajero($pasajero1){
+    public function modificarPasajero($pasajero1)
+    {
         $array = $this->getPasajeros();
         $n = count($array);
         $bolean = false;
-        if($n == 0){
+        if ($n == 0) {
             $bolean = false;
-        }else{
-            for($i = 0; $i < $n; $i++){
-                if($pasajero1 == $array[$i]->getNumDocumento()){
+        } else {
+            for ($i = 0; $i < $n; $i++) {
+                if ($pasajero1 == $array[$i]->getNumDocumento()) {
                     echo "Ingrese los nuevo datos: \n";
                     $nuevosDatos = obtenerDatos("pasajero");
                     $clave = array_search($array[$i], $array);
@@ -147,14 +166,15 @@ class Viaje{
                     $this->setPasajeros($array);
                     $bolean = true;
                 }
-            }           
-        }       
+            }
+        }
         return $bolean;
     }
 
-    public function mostrarInfoPasajeros(){
+    public function mostrarInfoPasajeros()
+    {
         $datos = "";
-        foreach($this->getPasajeros() as $key => $value){
+        foreach ($this->getPasajeros() as $key => $value) {
             $nombre = $value->getNombre();
             $apellido = $value->getApellido();
             $dni = $value->getNumDocumento();
@@ -174,9 +194,10 @@ class Viaje{
      * @return bool
      */
 
-    public function hayPasajesDisponibles(){
+    public function hayPasajesDisponibles()
+    {
         $bolean = false;
-        if((count($this->getPasajeros())) < $this->getMaxPasajeros()){
+        if ((count($this->getPasajeros())) < $this->getMaxPasajeros()) {
             $bolean = true;
         }
         return $bolean;
@@ -186,19 +207,21 @@ class Viaje{
      * @param object $pasajero
      * @return int
      */
-    public function venderPasaje($pasajero){
+    public function venderPasaje($pasajero)
+    {
         $precioVenta = 0;
         $pasajerosActuales = $this->getPasajeros();
         $n = count($pasajerosActuales);
-        if($this->hayPasajesDisponibles()){
+        if ($this->hayPasajesDisponibles()) {
             $pasajerosActuales[$n] = $pasajero;
             $this->setPasajeros($pasajerosActuales);
             $precioVenta = $this->getImporte();
         }
         return $precioVenta;
     }
-    
-    public function __toString(){
+
+    public function __toString()
+    {
         $pasajeros = $this->mostrarInfoPasajeros();
         /* $pasajeros = $this->getPasajeros(); */
         $responsable = $this->getResponsable();
@@ -213,7 +236,5 @@ class Viaje{
         Datos del responsable: \n $responsable
         ";
         return $informacion;
-    }   
-
-
+    }
 }
